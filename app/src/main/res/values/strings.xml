@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Peyvand</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="close_drawer">close</string>
+    <string name="open_drawer">open</string>
+
+    <string name="mozoop">موضوع پیام</string>
+    <string name="ersali">ارسال کننده</string>
+
+    <string name="newpayam">پیام جدید</string>
+    <string name="recivepayam">پیام های دریافتی</string>
+    <string name="ersalpayam">ارسالی ها</string>
+
+    <string name="chat">گفتگو کاربران</string>
+    <string name="exit">خروج</string>
+
+    <string name="newn">جدید</string>
+    <string name="pishnevis">پیش نویس</string>
+    <string name="sends">ارسالی ها</string>
+
+    <string name="manameh">متن نامه</string>
+    <string name="ersal">ارسال شده</string>
+    <string name="tersal">تاریخ ارسال</string>
+    <string name="nnameh">نوع نامه</string>
+
+
+    <string name="mozoo">موضوع</string>
+    <string name="matn">متن</string>
+    <string name="sabt">ثبت</string>
+    <string name="recive">دریافت کننده</string>
+
+
+    <string name="besm">بسمه تعالی</string>
+    <string name="tashakkor">با تشکر</string>
+    <string name="mnameh">موضوع نامه</string>
+    <string name="vorood">ورود</string>
+    <string name="pass">رمزعبور</string>
+    <string name="user">نام کاربری</string>
+    <string name="atoma">ورود به اتوماسیون</string>
+    <string name="send">ارسال</string>
+
+    <string name="country_prompt">Choose a country</string>
+
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
+</resources>
