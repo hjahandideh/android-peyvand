@@ -23,7 +23,7 @@
             android:textColor="#000"
         />
         <TextView
-            android:id="@+id/ersalp"
+            android:id="@+id/mopayam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
@@ -51,7 +51,6 @@
             android:textColor="#000"
             />
         <TextView
-            android:id="@+id/mopayam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
@@ -59,7 +58,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
 
-            android:layout_marginEnd="76dp" />
+            android:layout_marginEnd="76dp"
+            android:id="@+id/ersalp" />
 
 
     </LinearLayout>

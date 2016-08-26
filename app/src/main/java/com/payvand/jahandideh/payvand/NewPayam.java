@@ -1,5 +1,6 @@
 package com.payvand.jahandideh.payvand;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewPayam extends AppCompatActivity {
 private EditText mapayam;
@@ -122,6 +125,9 @@ private EditText recive;
 
         return super.onKeyDown(keyCode, event);
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }

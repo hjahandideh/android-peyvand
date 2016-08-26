@@ -1,6 +1,7 @@
 package com.payvand.jahandideh.payvand;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.TAG_RECIVE;
 import static com.payvand.jahandideh.payvand.Config.TAG_mopayam;
@@ -149,5 +152,8 @@ public class SentPayam extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

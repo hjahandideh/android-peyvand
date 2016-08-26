@@ -1,6 +1,7 @@
 package com.payvand.jahandideh.payvand;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
@@ -126,7 +129,10 @@ public class Pishnevis extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }
 

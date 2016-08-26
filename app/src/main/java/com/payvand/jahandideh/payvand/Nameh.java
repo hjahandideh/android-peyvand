@@ -1,6 +1,7 @@
 package com.payvand.jahandideh.payvand;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
@@ -179,6 +182,9 @@ public class Nameh extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }
