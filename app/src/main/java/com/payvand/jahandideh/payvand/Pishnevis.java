@@ -25,13 +25,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.payvand.jahandideh.payvand.Config.TAG_ID;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
-import static com.payvand.jahandideh.payvand.Config.TAG_NNAMEH;
 
 public class Pishnevis extends AppCompatActivity {
     private GoogleApiClient client;
@@ -93,7 +95,18 @@ public class Pishnevis extends AppCompatActivity {
                         loading.dismiss();
                         Toast.makeText(Pishnevis.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
-                });
+                })
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                Bundle b = getIntent().getExtras();
+                SetData = b.getString("username");
+                params.put("user", SetData);
+                return params;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonobjectRequest);
     }
@@ -107,7 +120,8 @@ public class Pishnevis extends AppCompatActivity {
                 json = array.getJSONObject(i);
                 namehParse.setNnameh(json.getString(TAG_MANAMEH));
                 namehParse.setMnameh(json.getString(TAG_MNAMEH));
-                namehParse.setRecive(json.getString(TAG_NNAMEH));
+                namehParse.setId(json.getString(TAG_ID));
+
                 powers.add(namehParse);
 
 

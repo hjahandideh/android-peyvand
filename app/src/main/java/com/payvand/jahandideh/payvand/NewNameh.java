@@ -37,6 +37,8 @@ import java.util.Map;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.NAMEH_NEW_URL;
+import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
+import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 import static com.payvand.jahandideh.payvand.Config.TAG_Username;
 
 public class NewNameh extends AppCompatActivity implements View.OnClickListener {
@@ -56,6 +58,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
     private EditText mnameh;
     private EditText manameh;
     public static TextView tv;
+    public static String usern;
 
     private EditText tersal;
     private List<Userlist> listuser;
@@ -73,7 +76,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newnameh);
-        tv=(TextView)findViewById(R.id.recive);
+        tv=(TextView)findViewById(R.id.textView14);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_user);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -96,7 +99,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         getData();
         Bundle b = getIntent().getExtras();
-        SetData = b.getString("newnameh");
+        SetData = b.getString("username");
 
     }
 
@@ -104,7 +107,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
 
     private void getData() {
         final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
-        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USER_URL,
+        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USERI_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -137,6 +140,8 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
             try {
                 json = array.getJSONObject(i);
                 userlist.setUsername(json.getString(TAG_Username));
+                userlist.setname(json.getString(TAG_NAME));
+                userlist.setLname(json.getString(TAG_Lname));
                 powers.add(userlist);
 
 
@@ -160,7 +165,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         final String nn = nnameh.getText().toString();
         final String mn = mnameh.getText().toString();
         final String man = manameh.getText().toString();
-        final String r = tv.getText().toString();
+        final String r = usern;
         final String e = SetData;
         final String t = tersal.getText().toString();
         final String s = "0";
@@ -184,7 +189,10 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
                 params.put(KEY_NNAMEH, nn);
                 params.put(KEY_MNAMEH, mn);
                 params.put(KEY_MANAMEH, man);
-                params.put(KEY_RECIVE, r);
+                if(r=="")
+                    params.put(KEY_RECIVE,"defult");
+                else
+                    params.put(KEY_RECIVE, r);
                 params.put(KEY_ERSAL, e);
                 params.put(KEY_TERSAL, t);
                 params.put(KEY_ST, s);
@@ -200,7 +208,6 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v == buttonRegister) {
-
             registerUser();
             nnameh.setText("");
             mnameh.setText("");

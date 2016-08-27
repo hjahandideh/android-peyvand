@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.myandroid.MainActivity" >
+    
+    <item android:id="@+id/Menu1" android:orderInCategory="1"
+		android:title="Menu1" />
+	<item android:id="@+id/submenu" android:title="Menu2"
+		android:orderInCategory="2">
+		<menu>
+			<item android:id="@+id/submenu1" android:title="SubMenu1" />
+			<item android:id="@+id/submenu2" android:title="SubMenu2" />
+		</menu>
+	</item>
+	<item android:id="@+id/Menu3" android:orderInCategory="3"
+		android:title="Menu1" />
+	<item android:id="@+id/Menu4" android:title="Menu4"
+		android:orderInCategory="4" />
+
+</menu>

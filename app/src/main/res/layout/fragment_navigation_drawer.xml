@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:background="@drawable/pp"
 
-    tools:context="com.payvand.jahandideh.payvand.Navigation_drawer">
+    tools:context="com.payvand.jahandideh.payvand.Navigation_drawer"
+    android:weightSum="1">
 
     <!-- TODO: Update blank fragment layout -->
     <com.payvand.jahandideh.payvand.CustomView
@@ -17,78 +18,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="-10dp"
         android:id="@+id/g" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
 
-
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/newn"
-        android:id="@+id/button3"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/ersal"
-        android:id="@+id/btnsent"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/pishnevis"
-        android:id="@+id/btnpishnevis"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/newpayam"
-        android:id="@+id/btnnewpayam"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/recivepayam"
-        android:id="@+id/button4"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/ersalpayam"
-        android:id="@+id/btnsentpayam"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="50dp"
-        android:text="@string/chat"
-        android:id="@+id/btnchat"
-        android:textColor="#000"
-        android:background="@drawable/p" />
-        <Button
+        <ExpandableListView
+            android:id="@+id/exp_list"
             android:layout_width="230dp"
-            android:layout_height="50dp"
-            android:text="@string/exit"
-            android:id="@+id/btnexit"
-            android:textColor="#000"
-            android:background="@drawable/p" />
+            android:layout_height="match_parent">
+        </ExpandableListView>
 
-
-
-    </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

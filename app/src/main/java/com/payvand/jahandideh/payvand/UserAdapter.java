@@ -40,12 +40,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         Userlist userlist =  userlists.get(position);
-        holder.username.setText(userlist.getUsername());
+        String name=userlist.getname();
+        String lname=userlist.getLname();
+        String nlname=name +" "+lname;
+        holder.username.setText(nlname);
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Userlist userlist =  userlists.get(position);
-                NewNameh.tv.setText(userlist.getUsername());
+                String name=userlist.getname();
+                String lname=userlist.getLname();
+                String nlname=name +" "+lname;
+                NewNameh.tv.setText(nlname);
+                NewNameh.usern=userlist.getUsername();
             }
         });
     }

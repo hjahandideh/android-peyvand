@@ -32,6 +32,8 @@ import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
+import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 import static com.payvand.jahandideh.payvand.Config.TAG_ersal;
 import static com.payvand.jahandideh.payvand.Config.TAG_mopayam;
 
@@ -44,6 +46,7 @@ public class Recive_Payam extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private GoogleApiClient client;
     String SetData;
+    String name,lname,nlname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,7 @@ public class Recive_Payam extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 Bundle b = getIntent().getExtras();
-                SetData = b.getString("recive");
+                SetData = b.getString("username");
                 params.put("user", SetData);
                 return params;
             }
@@ -102,13 +105,56 @@ public class Recive_Payam extends AppCompatActivity {
 
     private void parseData(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            SuperHeroes superHero = new SuperHeroes();
+            final SuperHeroes superHero = new SuperHeroes();
             JSONObject json = null;
             ArrayList<SuperHeroes> powers = new ArrayList<SuperHeroes>();
             try {
                 json = array.getJSONObject(i);
                 superHero.setMopayam(json.getString(TAG_mopayam));
-                superHero.setErsal(json.getString(TAG_ersal));
+
+                final String recive=(json.getString(TAG_ersal));
+                final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USERI_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jo = new JSONObject(response);
+                                    JSONArray array = jo.getJSONArray(Config.TAG_User);
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject json = null;
+                                        try {
+                                            json = array.getJSONObject(i);
+                                            name=json.getString(TAG_NAME);
+                                            lname=json.getString(TAG_Lname);
+
+                                            nlname=""+name+" "+lname;
+                                            superHero.setErsal(nlname);
+                                        } catch (JSONException e) {
+                                            Log.i("matis", "error in nameh parseuser()-->" + e.toString());
+                                        }
+
+
+                                    }
+                                } catch (JSONException e) {
+                                    Log.i("matis", "error in getuser jsonobject()-->" + e.toString());
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(Recive_Payam.this, error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("user", recive);
+                        return params;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
+                requestQueue.add(jsonobjectRequest);
                 powers.add(superHero);
 
 

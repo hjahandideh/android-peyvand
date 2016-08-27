@@ -8,11 +8,29 @@ import java.util.ArrayList;
 public class Userlist {
     //Data Variables
     private String username;
+    private String name;
+    private String lname;
 
 
     private ArrayList<Userlist> users;
 
     //Getters and Setters
+
+    public String getname() {
+        return name;
+    }
+
+    public void setname(String name) {
+        this.name = name;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String name) {
+        this.lname = name;
+    }
 
     public String getUsername() {
         return username;
@@ -21,8 +39,6 @@ public class Userlist {
     public void setUsername(String name) {
         this.username = name;
     }
-
-
 
     public ArrayList<Userlist> getuser() {
         return users;
