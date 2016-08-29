@@ -2,19 +2,12 @@ package com.payvand.jahandideh.payvand;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jahandideh on 19/07/2016.
- */
 public class Userlist {
-    //Data Variables
     private String username;
     private String name;
     private String lname;
 
-
     private ArrayList<Userlist> users;
-
-    //Getters and Setters
 
     public String getname() {
         return name;

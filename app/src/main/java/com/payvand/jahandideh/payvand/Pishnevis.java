@@ -43,16 +43,12 @@ public class Pishnevis extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     String SetData;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pishnevis);
-
+        Bundle b = getIntent().getExtras();
+        SetData = b.getString("username");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_pishnevis);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -66,26 +62,22 @@ public class Pishnevis extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
     }
 
     private void getData() {
-
-        final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
-
-
+        final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات", "لطفا منتظر بمانید...", false, false);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.NAMEH_PISHNEVIS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            loading.dismiss();
                             JSONObject jo=new JSONObject(response);
                             JSONArray jsonArray = jo.getJSONArray(Config.TAG_NAMEHS);
-                            loading.dismiss();
                             parseData(jsonArray);
                         } catch (JSONException e) {
-                            Log.i("matis", "error in Pishnevis jsonobject()-->"+response + e.toString());
+                            Log.i("matis", "error in Sent jsonobject()-->"+response + e.toString());
                         }
                     }
                 },
@@ -93,7 +85,7 @@ public class Pishnevis extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(Pishnevis.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Pishnevis.this, "خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
                     }
                 })
         {
@@ -101,19 +93,16 @@ public class Pishnevis extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                Bundle b = getIntent().getExtras();
-                SetData = b.getString("username");
                 params.put("user", SetData);
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonobjectRequest);
     }
 
     private void parseData(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            NamehParse namehParse = new NamehParse();
+            final NamehParse namehParse = new NamehParse();
             JSONObject json = null;
             ArrayList<NamehParse> powers = new ArrayList<NamehParse>();
             try {
@@ -121,26 +110,15 @@ public class Pishnevis extends AppCompatActivity {
                 namehParse.setNnameh(json.getString(TAG_MANAMEH));
                 namehParse.setMnameh(json.getString(TAG_MNAMEH));
                 namehParse.setId(json.getString(TAG_ID));
-
                 powers.add(namehParse);
-
-
-
             } catch (JSONException e) {
-                Log.i("matis", "error in Pishnevis parsedata()-->" + e.toString());
+                Log.i("matis", "error in Sent parsedata()-->" + e.toString());
             }
             namehParse.setNamehs(powers);
             listNamehRecive.add(namehParse);
-
-
-            //Finally initializing our adapter
-            adapter = new NamehAdapter(listNamehRecive,this);
-
-            //Adding adapter to recyclerview
+            adapter = new PishnevisAdapter(listNamehRecive, this);
             recyclerView.setAdapter(adapter);
-
         }
-
     }
 
     @Override

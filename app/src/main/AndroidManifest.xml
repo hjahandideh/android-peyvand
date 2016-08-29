@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
 
     <application
+        android:name=".FontDastnevis"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:name=".FontDastnevis"
         android:label="اتوماسیون اداری"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -25,26 +25,24 @@
         </activity>
         <activity
             android:name=".Peyvand"
-            android:label="صندوق دریافت"
-            />
-
-        <activity android:name=".SentPayam"
+            android:label="صندوق دریافت" />
+        <activity
+            android:name=".SentPayam"
             android:label="ارسالی ها">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
-            </activity>
+        </activity>
         <activity
             android:name=".Recive_Payam"
-            android:label="پیام های دریافتی" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.payvand.jahandideh.payvand.Peyvand" />
+            android:label="پیام های دریافتی">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-
         <activity
             android:name=".NewNameh"
-            android:label="نامه جدید" >
+            android:label="نامه جدید">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
@@ -54,35 +52,51 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".NewPayam"
+        <activity
+            android:name=".NewPayam"
             android:label="پیام جدید">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-        <activity android:name=".Nameh"
+        <activity
+            android:name=".Nameh"
             android:label="مشاهده نامه">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.payvand.jahandideh.payvand.Peyvand" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-        <activity android:name=".NamehSent"
+        <activity
+            android:name=".NamehSent"
             android:label="ارسالی ها ">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-        <activity android:name=".Pishnevis"
+        <activity
+            android:name=".Pishnevis"
             android:label="پیش نویس ها">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.payvand.jahandideh.payvand.Peyvand" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-        <activity android:name=".Chat"
+        <activity
+            android:name=".Chat"
             android:label="گفتگو کاربران">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
+        </activity>
+        <activity android:name=".Payam"
+            android:label="متن پیام">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.payvand.jahandideh.payvand.Peyvand" />
+            android:value="com.payvand.jahandideh.payvand.Peyvand" /></activity>
+        <activity android:name=".EditNameh"
+            android:label="ویرایش نامه">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
     </application>
 

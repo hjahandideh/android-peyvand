@@ -1,12 +1,6 @@
 package com.payvand.jahandideh.payvand;
 
-/**
- * Created by Jahandideh on 19/07/2016.
- */
 public class Config {
-    //URL of my API
-
-
     public static final String DATA_URL = "http://bemq.ir/payaminbox.php";
     public static final String PAYAM_ERSAL_URL = "http://bemq.ir/payamersali.php";
     public static final String PAYAM_NEW_URL = "http://bemq.ir/newpayam.php";
@@ -17,10 +11,10 @@ public class Config {
     public static final String NAMEH_PISHNEVIS_URL = "http://bemq.ir/pishnevis.php";
     public static final String INSERT_CHAT_URL = "http://bemq.ir/chat.php";
     public static final String Chat_URL = "http://bemq.ir/display_chat.php";
+    public static final String Payam_URL = "http://bemq.ir/payam.php";
     public static final String USER_URL = "http://bemq.ir/users.php";
-    public static final String USERI_URL = "http://bemq.ir/useri.php";
+    public static final String Edit_Nameh_URL = "http://bemq.ir/editnameh.php";
 
-    //Tags for my JSON
     public static final String TAG_mopayam = "mopayam";
     public static final String TAG_ersal = "ersal";
     public static final String TAG_Payam = "payam";
@@ -31,10 +25,10 @@ public class Config {
     public static final String TAG_MANAMEH="manameh";
     public static final String TAG_RECIVE="recive";
     public static final String TAG_NAMEHS="nameh";
+    public static final String TAG_TERSAL="tersal";
     public static final String TAG_User="user";
     public static final String TAG_Username="username";
     public static final String TAG_Lname="lname";
-    public static final String TAG_Semat="semat";
     public static final String TAG_Paygham="paygham";
     public static final String TAG_NAME="name";
     public static final String TAG_MAPayam="mapayam";

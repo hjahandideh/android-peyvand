@@ -32,9 +32,9 @@ import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.payvand.jahandideh.payvand.Config.TAG_ID;
 import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
-import static com.payvand.jahandideh.payvand.Config.TAG_ersal;
 import static com.payvand.jahandideh.payvand.Config.TAG_mopayam;
 
 
@@ -46,7 +46,7 @@ public class Recive_Payam extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private GoogleApiClient client;
     String SetData;
-    String name,lname,nlname;
+    String name,lname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class Recive_Payam extends AppCompatActivity {
     }
 
     private void getData() {
-        final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات", "لطفا منتظر بمانید...", false, false);
         final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.DATA_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -111,86 +111,27 @@ public class Recive_Payam extends AppCompatActivity {
             try {
                 json = array.getJSONObject(i);
                 superHero.setMopayam(json.getString(TAG_mopayam));
-
-                final String recive=(json.getString(TAG_ersal));
-                final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USERI_URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject jo = new JSONObject(response);
-                                    JSONArray array = jo.getJSONArray(Config.TAG_User);
-                                    for (int i = 0; i < array.length(); i++) {
-                                        JSONObject json = null;
-                                        try {
-                                            json = array.getJSONObject(i);
-                                            name=json.getString(TAG_NAME);
-                                            lname=json.getString(TAG_Lname);
-
-                                            nlname=""+name+" "+lname;
-                                            superHero.setErsal(nlname);
-                                        } catch (JSONException e) {
-                                            Log.i("matis", "error in nameh parseuser()-->" + e.toString());
-                                        }
-
-
-                                    }
-                                } catch (JSONException e) {
-                                    Log.i("matis", "error in getuser jsonobject()-->" + e.toString());
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(Recive_Payam.this, error.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("user", recive);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(this);
-                requestQueue.add(jsonobjectRequest);
+                superHero.setName(json.getString(TAG_NAME));
+                superHero.setLName(json.getString(TAG_Lname));
+                superHero.setId(json.getString(TAG_ID));
                 powers.add(superHero);
-
-
             } catch (JSONException e) {
                 Log.i("matis", "error in Recive_payam parsedata()-->" + e.toString());
             }
             superHero.setPayams(powers);
             listSuperHeroes.add(superHero);
-
-
-            //Finally initializing our adapter
-            adapter = new CardAdapter(listSuperHeroes);
-
-            //Adding adapter to recyclerview
+            adapter = new CardAdapter(listSuperHeroes,this);
             recyclerView.setAdapter(adapter);
-
         }
-
     }
-
-
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-//دستور رفتن از صفحه حاضر به صفحه دلخواه
-
-            this.overridePendingTransition(R.anim.slide_l,
-                    R.anim.slide_r);
+            this.overridePendingTransition(R.anim.slide_l, R.anim.slide_r);
             finish();
-
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
     }
     @Override

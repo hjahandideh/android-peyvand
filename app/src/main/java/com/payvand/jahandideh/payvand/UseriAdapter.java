@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class UseriAdapter extends RecyclerView.Adapter<UseriAdapter.ViewHolder> {
 
     List<Userlist> userlists;
-    public UserAdapter(List<Userlist> userlists){
+    public UseriAdapter(List<Userlist> userlists){
         super();
         this.userlists = userlists;
+
     }
 
     @Override
@@ -34,8 +34,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Userlist userlist =  userlists.get(position);
-                NewNameh.tv.setText(userlist.getname()+" "+userlist.getLname());
-                NewNameh.usern=userlist.getUsername();
+                NewPayam.recive.setText(userlist.getname()+" "+userlist.getLname());
+                NewPayam.recie=userlist.getUsername();
             }
         });
     }
@@ -44,7 +44,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public int getItemCount() {
         return userlists.size();
     }
-
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
         public TextView lname;
@@ -52,6 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.textView17);
             lname = (TextView) itemView.findViewById(R.id.textuser);
+
         }
     }
 }

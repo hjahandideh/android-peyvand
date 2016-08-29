@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+     >
+
+
+            <include
+                layout="@layout/app_bar"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nnameh"
+                    android:id="@+id/textView12"
+                    android:textColor="#000" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nn"
+                    android:background="@drawable/custom_button"
+                    android:layout_toEndOf="@+id/textView12"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mnameh"
+                    android:id="@+id/textView11"
+                    android:textColor="#000" />
+                <EditText
+                    android:background="@drawable/custom_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mn"
+                    android:layout_toEndOf="@+id/textView11"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manameh"
+                    android:id="@+id/textView13"
+                    android:textColor="#000" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_button"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/man"
+                    android:focusable="true"
+                    android:maxLines="14"
+                    android:minLines="10"
+                    android:layout_toEndOf="@+id/textView13"
+                    android:gravity="top" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/textgetrec"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/rec"
+                        android:layout_alignParentBottom="true" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rec"
+                        android:text="@string/recive"
+                        android:textColor="#000"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_user_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="84dp"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tersal"
+
+                    android:id="@+id/textView15"
+                    android:textColor="#000" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tersali"
+                    android:layout_toEndOf="@+id/textView15"
+                    android:inputType="date"
+                    android:background="@drawable/custom_button"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_sabti"
+                    android:background="@drawable/button"
+                    android:text="@string/sabt" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

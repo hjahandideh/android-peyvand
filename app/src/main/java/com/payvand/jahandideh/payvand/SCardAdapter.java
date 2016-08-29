@@ -12,13 +12,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
-
+public class SCardAdapter extends RecyclerView.Adapter<SCardAdapter.ViewHolder> {
     private SuperHeroes superHero;
     private Context context;
     List<SuperHeroes> superHeroes;
 
-    public CardAdapter(List<SuperHeroes> superHeroes,Context context){
+    public SCardAdapter(List<SuperHeroes> superHeroes,Context context){
         super();
         this.superHeroes = superHeroes;
         this.context=context;
@@ -26,7 +25,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_ersal, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -61,6 +60,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public TextView name;
         public TextView lname;
         public CardView card_view;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mopayam = (TextView) itemView.findViewById(R.id.mopayam);

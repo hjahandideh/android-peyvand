@@ -38,9 +38,7 @@ import static com.payvand.jahandideh.payvand.Config.TAG_MAPayam;
 
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
-
-
-    public static final String KEY_Name= "name";
+    public static final String KEY_Name = "name";
     public static final String KEY_MAPAYAM = "mapayam";
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
@@ -51,7 +49,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     String SetData;
     private EditText mapayam;
     private Button buttonRegister;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +68,14 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
     }
 
     private void registerChat() {
         final String nn = mapayam.getText().toString();
         Bundle b = getIntent().getExtras();
         SetData = b.getString("chat");
-        final String e ="http://bemq.ir/image/"+SetData+".jpg";
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,Config.INSERT_CHAT_URL,
+        final String e = "http://bemq.ir/image/" + SetData + ".jpg";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.INSERT_CHAT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -99,14 +92,10 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_MAPAYAM, nn);
-
                 params.put(KEY_Name, e);
-
                 return params;
             }
-
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
@@ -114,32 +103,23 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == buttonRegister) {
-
             registerChat();
             mapayam.setText("");
-
             getData();
-
-
-
         }
     }
 
     private void getData() {
-
-
-
-
-        StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST,Config.Chat_URL,
+        StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.Chat_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jo=new JSONObject(response);
+                            JSONObject jo = new JSONObject(response);
                             JSONArray jsonArray = jo.getJSONArray(Config.TAG_Paygham);
                             parseData(jsonArray);
                         } catch (JSONException e) {
-                            Log.i("matis", "error in chat jsonobject()-->"+response + e.toString());
+                            Log.i("matis", "error in chat jsonobject()-->" + response + e.toString());
                         }
                     }
                 },
@@ -162,46 +142,32 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
                 json = array.getJSONObject(i);
                 chatlist.setMapayam(json.getString(TAG_MAPayam));
                 chatlist.setImageUrl(json.getString(Config.TAG_NAME));
-
                 powers.add(chatlist);
-
-
-
             } catch (JSONException e) {
                 Log.i("matis", "error in chat parsedata()-->" + e.toString());
             }
             chatlist.setchats(powers);
             listchat.add(chatlist);
-
-
-            //Finally initializing our adapter
             adapter = new ChatAdapter(listchat);
-
-            //Adding adapter to recyclerview
             recyclerView.setAdapter(adapter);
-
             recyclerView.scrollToPosition(listchat.size());
         }
-
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             finish();
-
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

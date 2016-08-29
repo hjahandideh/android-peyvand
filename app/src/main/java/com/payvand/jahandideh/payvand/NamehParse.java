@@ -5,16 +5,15 @@ package com.payvand.jahandideh.payvand;
  */
 import java.util.ArrayList;
 
-
 public class NamehParse {
-    //Data Variables
     private String nnameh;
     private String id;
     private String mnameh;
-    private String recive;
+    private String name;
+    private String lname;
+    private String ersal;
     private ArrayList<NamehParse> namehs;
 
-    //Getters and Setters
     public String getid(){return id;}
     public void setId(String id){this.id=id;}
     public String getNnameh() {
@@ -34,14 +33,30 @@ public class NamehParse {
         this.mnameh = mnameh;
     }
 
-    public String getRecive() {
-        return recive;
+    public String getname() {
+        return name;
     }
 
-    public void setRecive(String recive) {
-        this.recive = recive;
+    public void setname(String recive) {
+        this.name = recive;
     }
 
+
+    public String getersal() {
+        return ersal;
+    }
+
+    public void setersal(String recive) {
+        this.ersal = recive;
+    }
+
+    public String getlname() {
+        return lname;
+    }
+
+    public void setlname(String recive) {
+        this.lname = recive;
+    }
 
     public ArrayList<NamehParse> getNamehs() {
         return namehs;

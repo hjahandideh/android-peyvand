@@ -2,17 +2,12 @@ package com.payvand.jahandideh.payvand;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jahandideh on 19/07/2016.
- */
 public class Chatlist {
-    //Data Variables
     private String mapayam;
     private String imageUrl;
     private String name;
     private ArrayList<Chatlist> chats;
 
-    //Getters and Setters
     public String getImageUrl() {
         return imageUrl;
     }
@@ -20,6 +15,7 @@ public class Chatlist {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
     public String getMapayam() {
         return mapayam;
     }

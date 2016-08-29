@@ -2,7 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,11 +27,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nnameh"
-                android:id="@+id/textView12" />
+                android:id="@+id/textView12"
+                android:textColor="#000" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/nnameh"
+                android:background="@drawable/custom_button"
                 android:layout_toEndOf="@+id/textView12"
                  />
         </RelativeLayout>
@@ -39,10 +44,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mnameh"
-                android:id="@+id/textView11" />
+                android:id="@+id/textView11"
+                android:textColor="#000" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
                 android:id="@+id/mnameh"
                 android:layout_toEndOf="@+id/textView11"/>
         </RelativeLayout>
@@ -53,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manameh"
-                android:id="@+id/textView13" />
+                android:id="@+id/textView13"
+                android:textColor="#000" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -61,6 +69,7 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/manameh"
+                android:background="@drawable/custom_button"
                 android:focusable="true"
                 android:maxLines="14"
                 android:minLines="10"
@@ -71,23 +80,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                >
 
                 <TextView
-                    android:layout_width="302dp"
+                    android:layout_width="200dp"
                     android:layout_height="29dp"
-                    android:id="@+id/textView14"
+                    android:id="@+id/textView18"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/recive"
-                    android:text="@string/recive" />
-            </LinearLayout>
+                    android:text="@string/recive"
+                    android:textColor="#000"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/textView18" />
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_user"
@@ -105,10 +118,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tersal"
-                android:id="@+id/textView15" />
+                android:id="@+id/textView15"
+                android:textColor="#000" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
                 android:id="@+id/tersal"
                 android:layout_toEndOf="@+id/textView15"
                 android:inputType="date"

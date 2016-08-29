@@ -52,18 +52,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(final int groupPosition, final int childPosition,
 							 boolean isLastChild, View convertView, ViewGroup parent) {
-
 		final String childText = (String) getChild(groupPosition, childPosition);
-
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this._context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = infalInflater.inflate(R.layout.child, null);
 		}
-
-		final TextView txtListChild = (TextView) convertView
-				.findViewById(R.id.lblListItem);
-
+		final TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
 		txtListChild.setText(childText);
 		txtListChild.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -71,7 +66,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				if(txtListChild.getText()=="جدید") {
 					Intent viewActivity = new Intent(_context.getApplicationContext(), NewNameh.class);
 					Bundle bd = new Bundle();
-					bd.putString("chat",SetData);
+					bd.putString("username",SetData);
 					viewActivity.putExtras(bd);
 					Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
 					_context.startActivity(viewActivity, bndlanimation);
@@ -120,11 +115,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		});
 		return convertView;
 	}
-
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-				.size();
+		return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
 	}
 
 	@Override
@@ -156,32 +149,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.lblListHeader);
 		lblListHeader.setTypeface(null, Typeface.BOLD);
 		lblListHeader.setText(headerTitle);
-		if(groupPosition==3) {
-
+		if(lblListHeader.getText()=="خروج") {
 			lblListHeader.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-
 					boolean f = mydb.deletdata(SetData);
 					if (f == true) {
 						Intent viewActivity1 = new Intent(_context.getApplicationContext(), MainActivity.class);
 						((Activity)_context).finish();
 						_context.startActivity(viewActivity1);
-
-
-
 					} else
 						Toast.makeText(_context.getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
 				}
 			});
 		}
-		if(groupPosition==2) {
+		if(lblListHeader.getText()=="گفتگو کاربران") {
 			lblListHeader.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Intent viewActivity = new Intent(_context.getApplicationContext(), Chat.class);
 					Bundle bd = new Bundle();
-					bd.putString("username",SetData);
+					bd.putString("chat",SetData);
 					viewActivity.putExtras(bd);
 					Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
 					_context.startActivity(viewActivity, bndlanimation);
@@ -191,7 +179,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			return convertView;
 
 	}
-
 	@Override
 	public boolean hasStableIds() {
 		return false;

@@ -4,12 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,75 +17,58 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
-import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
-import static com.payvand.jahandideh.payvand.Config.TAG_RECIVE;
+import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
+import static com.payvand.jahandideh.payvand.Config.TAG_MAPayam;
+import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 
-public class Sent extends AppCompatActivity {
+public class Payam extends AppCompatActivity {
+
+    private TextView mapayam;
+    private TextView name;
+    private TextView lname;
     private GoogleApiClient client;
-    private List<NamehParse> listNamehRecive;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
     String SetData;
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ersal);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_ersalname);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        listNamehRecive = new ArrayList<>();
-        getData();
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        setContentView(R.layout.activity_payam);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
+        name=(TextView)findViewById(R.id.etrecive);
+        lname=(TextView)findViewById(R.id.etrecive1);
+        mapayam=(TextView)findViewById(R.id.mpayamr);
+        getData();
     }
 
     private void getData() {
-
         final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
-
-
-        StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.NAMEH_ERSAL_URL,
+        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.Payam_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jo=new JSONObject(response);
-                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_NAMEHS);
+                            JSONObject jo = new JSONObject(response);
+                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_Payam);
                             loading.dismiss();
                             parseData(jsonArray);
                         } catch (JSONException e) {
-                            Log.i("matis", "error in Sent jsonobject()-->"+response + e.toString());
+                            Log.i("matis", "error in nameh jsonobject()-->" + e.toString());
                         }
                     }
                 },
@@ -94,16 +76,14 @@ public class Sent extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(Sent.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Payam.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
-                })
-        {
+                }) {
             @Override
-            protected Map<String, String> getParams()
-            {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 Bundle b = getIntent().getExtras();
-                SetData = b.getString("username");
+                SetData = b.getString("id");
                 params.put("user", SetData);
                 return params;
             }
@@ -114,51 +94,30 @@ public class Sent extends AppCompatActivity {
 
     private void parseData(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            NamehParse namehParse = new NamehParse();
             JSONObject json = null;
-            ArrayList<NamehParse> powers = new ArrayList<NamehParse>();
             try {
                 json = array.getJSONObject(i);
-                namehParse.setNnameh(json.getString(TAG_MANAMEH));
-                namehParse.setMnameh(json.getString(TAG_MNAMEH));
-                namehParse.setRecive(json.getString(TAG_RECIVE));
-                powers.add(namehParse);
-
-
-
+                name.setText(json.getString(TAG_NAME));
+                lname.setText(json.getString(TAG_Lname));
+                mapayam.setText(json.getString(TAG_MAPayam));
             } catch (JSONException e) {
-                Log.i("matis", "error in Sent parsedata()-->" + e.toString());
+                Log.i("matis", "error in nameh paredata parsedata()-->" +e.toString());
             }
-            namehParse.setNamehs(powers);
-            listNamehRecive.add(namehParse);
-
-
-            //Finally initializing our adapter
-            adapter = new NamehAdapter(listNamehRecive,this);
-
-            //Adding adapter to recyclerview
-            recyclerView.setAdapter(adapter);
-
         }
-
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
+            this.overridePendingTransition(R.anim.slide_l, R.anim.slide_r);
             finish();
-
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
     }
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-}
 
+}
