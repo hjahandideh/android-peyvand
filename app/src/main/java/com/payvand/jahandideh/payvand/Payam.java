@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +36,6 @@ public class Payam extends AppCompatActivity {
     private TextView mapayam;
     private TextView name;
     private TextView lname;
-    private GoogleApiClient client;
     String SetData;
 
     @Override

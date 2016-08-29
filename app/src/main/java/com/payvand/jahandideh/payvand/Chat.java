@@ -18,8 +18,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -42,8 +40,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     public static final String KEY_MAPAYAM = "mapayam";
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private NetworkImageView imageView;
-    private ImageLoader imageLoader;
     private List<Chatlist> listchat;
     private RecyclerView recyclerView;
     String SetData;

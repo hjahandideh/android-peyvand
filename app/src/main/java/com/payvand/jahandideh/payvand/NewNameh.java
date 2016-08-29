@@ -22,14 +22,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,24 +51,23 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
     public static final String KEY_TERSAL = "tersal";
     public static final String KEY_ST = "st";
     String SetData;
+    String date;
     private EditText nnameh;
     private EditText mnameh;
     private EditText manameh;
     public static TextView tv;
     public static String usern;
-    private EditText tersal;
     private List<Userlist> listuser;
     private Button buttonRegister;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newnameh);
-        tv=(TextView)findViewById(R.id.textView18);
+        tv = (TextView) findViewById(R.id.textView18);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_user);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -76,8 +75,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         nnameh = (EditText) findViewById(R.id.nnameh);
         mnameh = (EditText) findViewById(R.id.mnameh);
         manameh = (EditText) findViewById(R.id.manameh);
-        listuser=new ArrayList<>();
-        tersal = (EditText) findViewById(R.id.tersal);
+        listuser = new ArrayList<>();
         buttonRegister = (Button) findViewById(R.id.btn_sabt);
         buttonRegister.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -86,12 +84,11 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         getData();
         Bundle b = getIntent().getExtras();
         SetData = b.getString("username");
+        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
-
     private void getData() {
         final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
         final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USER_URL,
@@ -147,7 +144,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         final String man = manameh.getText().toString();
         final String r = usern;
         final String e = SetData;
-        final String t = tersal.getText().toString();
+        final String t = date;
         final String s = "0";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, NAMEH_NEW_URL,
                 new Response.Listener<String>() {
@@ -187,7 +184,6 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
                     mnameh.setText("");
                     manameh.setText("");
                     tv.setText("");
-                    tersal.setText("");
             }
     }
 
@@ -208,4 +204,6 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+
 }

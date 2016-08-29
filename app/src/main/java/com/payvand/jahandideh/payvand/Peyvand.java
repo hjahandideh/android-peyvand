@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +41,6 @@ import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 import static com.payvand.jahandideh.payvand.Config.TAG_ersal;
 
 public class Peyvand extends AppCompatActivity {
-    private GoogleApiClient client;
     private List<NamehParse> listNamehRecive;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;

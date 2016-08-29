@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +31,7 @@ import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
+import static com.payvand.jahandideh.payvand.Config.TAG_TERSAL;
 
 
 public class Nameh extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class Nameh extends AppCompatActivity {
     private TextView manameh;
     private TextView ersal;
     private TextView ersall;
-    private GoogleApiClient client;
+    private TextView tersall;
     String SetData;
     String recive;
     String name;
@@ -61,6 +61,7 @@ public class Nameh extends AppCompatActivity {
         manameh=(TextView)findViewById(R.id.textmanameh);
         ersal=(TextView)findViewById(R.id.textersal);
         ersall=(TextView)findViewById(R.id.textView19);
+        tersall=(TextView)findViewById(R.id.txttersal);
         getData();
     }
 
@@ -107,6 +108,7 @@ public class Nameh extends AppCompatActivity {
                 manameh.setText(json.getString(TAG_MANAMEH));
                 ersal.setText(json.getString(TAG_NAME));
                 ersall.setText(json.getString(TAG_Lname));
+                tersall.setText(json.getString(TAG_TERSAL));
             } catch (JSONException e) {
                 Log.i("matis", "error in nameh paredata parsedata()-->"+recive+ e.toString());
             }

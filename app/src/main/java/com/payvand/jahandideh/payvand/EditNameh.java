@@ -22,8 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +53,6 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
     public static final String KEY_ERSAL = "ersal";
     public static final String KEY_TERSAL = "tersal";
     public static final String KEY_ID = "id";
-
     String SetData;
     private EditText nnameh;
     private EditText mnameh;
@@ -70,7 +67,6 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +90,6 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         getData();
         setData();
         Bundle db = getIntent().getExtras();

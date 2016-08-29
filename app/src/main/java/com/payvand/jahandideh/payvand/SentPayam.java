@@ -18,8 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +41,6 @@ public class SentPayam extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private GoogleApiClient client;
     String SetData;
     String name,lname;
 
@@ -57,7 +54,6 @@ public class SentPayam extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         listSuperHeroes = new ArrayList<>();
         getData();
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);

@@ -21,8 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +51,6 @@ public class NewPayam extends AppCompatActivity {
     public static final String KEY_Mapayam = "mapayam";
     public static final String KEY_recive = "recive";
     public static final String KEY_ersal = "ersal";
-    private GoogleApiClient client;
     String SetData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +58,6 @@ public class NewPayam extends AppCompatActivity {
         setContentView(R.layout.activity_new_payam);
         Bundle b = getIntent().getExtras();
         SetData = b.getString("username");
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -73,7 +69,6 @@ public class NewPayam extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         mapayam=(EditText)findViewById(R.id.mapayam);
         mopayam=(EditText)findViewById(R.id.mopayam);
         recive=(TextView)findViewById(R.id.textView18);
