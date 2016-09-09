@@ -1,7 +1,10 @@
 package com.payvand.jahandideh.payvand;
 
-import android.app.ProgressDialog;
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,27 +40,30 @@ import java.util.Map;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.NAMEH_NEW_URL;
-import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
-import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
-import static com.payvand.jahandideh.payvand.Config.TAG_Username;
+import static com.payvand.jahandideh.payvand.Config.TAG_ID;
 
 public class NewNameh extends AppCompatActivity implements View.OnClickListener {
 
     public static final String KEY_NNAMEH = "nnameh";
     public static final String KEY_MNAMEH = "mnameh";
     public static final String KEY_MANAMEH = "manameh";
-    public static final String KEY_RECIVE = "recive";
+    public static final String KEY_ERJAH = "jahat";
+    public static final String KEY_ERJA = "erjah";
+    public static final String KEY_mte = "tmeghhdam";
     public static final String KEY_ERSAL = "ersal";
+    public static final String KEY_EGHDAM = "eghdam";
     public static final String KEY_TERSAL = "tersal";
     public static final String KEY_ST = "st";
+    public static final String KEY_TAYEED = "tayeed";
     String SetData;
     String date;
     private EditText nnameh;
     private EditText mnameh;
     private EditText manameh;
     public static TextView tv;
+    private  String count;
     public static String usern;
-    private List<Userlist> listuser;
+    private List<ErjahList> listerjah;
     private Button buttonRegister;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -75,7 +81,7 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         nnameh = (EditText) findViewById(R.id.nnameh);
         mnameh = (EditText) findViewById(R.id.mnameh);
         manameh = (EditText) findViewById(R.id.manameh);
-        listuser = new ArrayList<>();
+        listerjah = new ArrayList<>();
         buttonRegister = (Button) findViewById(R.id.btn_sabt);
         buttonRegister.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -88,18 +94,17 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
         Bundle b = getIntent().getExtras();
         SetData = b.getString("username");
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        getcount();
     }
-    private void getData() {
-        final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
-        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USER_URL,
+    private void getcount() {
+        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.COUNT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jo = new JSONObject(response);
-                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_User);
-                            loading.dismiss();
-                            parseData(jsonArray);
+                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_NAMEHS);
+                            parsecount(jsonArray);
                         } catch (JSONException e) {
                             Log.i("matis", "error in newnameh jsonobject()-->" + e.toString());
                         }
@@ -108,7 +113,47 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        loading.dismiss();
+                        Toast.makeText(NewNameh.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonobjectRequest);
+    }
+
+    private void parsecount(JSONArray array) {
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject json = null;
+            try {
+                json = array.getJSONObject(i);
+                count=json.getString(TAG_ID);
+
+
+
+            } catch (JSONException e) {
+                Log.i("matis", "error in Recive_payam parsedata()-->" + e.toString());
+            }
+
+        }
+    }
+    private void getData() {
+
+        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.ERJAH_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jo = new JSONObject(response);
+                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_NAMEHS);
+                            parseData(jsonArray);
+                        } catch (JSONException e) {
+
+                            Log.i("matis", "error in newnameh jsonobject()-->" + e.toString());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
                         Toast.makeText(NewNameh.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -118,45 +163,47 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
 
     private void parseData(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            Userlist userlist = new Userlist();
+            ErjahList erjahList = new ErjahList();
             JSONObject json = null;
-            ArrayList<Userlist> powers = new ArrayList<Userlist>();
+            ArrayList<ErjahList> powers = new ArrayList<ErjahList>();
             try {
                 json = array.getJSONObject(i);
-                userlist.setUsername(json.getString(TAG_Username));
-                userlist.setname(json.getString(TAG_NAME));
-                userlist.setLname(json.getString(TAG_Lname));
-                powers.add(userlist);
+                erjahList.seterjah(json.getString(KEY_ERJA));
+
+                powers.add(erjahList);
 
 
             } catch (JSONException e) {
                 Log.i("matis", "error in Recive_payam parsedata()-->" + e.toString());
             }
-            userlist.setuser(powers);
-            listuser.add(userlist);
-            adapter = new UserAdapter(listuser);
+            erjahList.setErjahs(powers);
+            listerjah.add(erjahList);
+            adapter = new ErjahAdapter(listerjah);
             recyclerView.setAdapter(adapter);
         }
     }
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void registerUser() {
         final String nn = nnameh.getText().toString();
         final String mn = mnameh.getText().toString();
         final String man = manameh.getText().toString();
-        final String r = usern;
+        final String r = tv.getText().toString();
         final String e = SetData;
         final String t = date;
+        final String ter = "00-00-0000";
         final String s = "0";
+        final String ta="";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, NAMEH_NEW_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(NewNameh.this, "نامه ارسال شد", Toast.LENGTH_LONG).show();
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewNameh.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(NewNameh.this, "خطا در ثبت اطلاعات", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -165,10 +212,12 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
                 params.put(KEY_NNAMEH, nn);
                 params.put(KEY_MNAMEH, mn);
                 params.put(KEY_MANAMEH, man);
-                params.put(KEY_RECIVE, r);
+                params.put(KEY_ERJAH, r);
                 params.put(KEY_ERSAL, e);
                 params.put(KEY_TERSAL, t);
+                params.put(KEY_mte, ter);
                 params.put(KEY_ST, s);
+                params.put(KEY_TAYEED, ta);
                 return params;
             }
         };
@@ -184,6 +233,14 @@ public class NewNameh extends AppCompatActivity implements View.OnClickListener 
                     mnameh.setText("");
                     manameh.setText("");
                     tv.setText("");
+                    usern="";
+                    Intent viewActivity = new Intent(this, Reciver.class);
+                    Bundle bd = new Bundle();
+                    bd.putString("username",count);
+                    viewActivity.putExtras(bd);
+                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(this, R.anim.ani1, R.anim.anim2).toBundle();
+                    startActivity(viewActivity, bndlanimation);
+                    finish();
             }
     }
 

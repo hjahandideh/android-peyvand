@@ -2,15 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
 
-    android:background="@color/accent_material_dark"
     >
-
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_userlist"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView17"
+
+        android:id="@+id/textuser"
         android:layout_gravity="center_horizontal"
         android:textColor="#000"
         android:textSize="18sp" />
@@ -19,7 +30,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textuser"
+        android:id="@+id/textView17"
         android:textSize="18sp"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/semat"
+            android:text="#000"
+            android:textColor="#000" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

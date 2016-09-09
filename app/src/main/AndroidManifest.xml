@@ -23,12 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".Peyvand"
             android:label="صندوق دریافت" />
         <activity
             android:name=".SentPayam"
-            android:label="ارسالی ها">
+            android:label="پیام های ارسال شده">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
@@ -47,11 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".NewPayam"
             android:label="پیام جدید">
@@ -68,14 +68,14 @@
         </activity>
         <activity
             android:name=".NamehSent"
-            android:label="ارسالی ها ">
+            android:label="نامه های ارسال شده">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
         <activity
             android:name=".Pishnevis"
-            android:label="پیش نویس ها">
+            android:label="نامه های پیش نویس">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
@@ -87,17 +87,45 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
-        <activity android:name=".Payam"
+        <activity
+            android:name=".Payam"
             android:label="متن پیام">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.payvand.jahandideh.payvand.Peyvand" /></activity>
-        <activity android:name=".EditNameh"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
+        </activity>
+        <activity
+            android:name=".EditNameh"
             android:label="ویرایش نامه">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.payvand.jahandideh.payvand.Peyvand" />
         </activity>
+        <activity
+            android:name=".Reciver"
+            android:label="انتخاب اشخاص یا سمت مورد نظر" />
+        <activity
+            android:name=".Eghdam"
+            android:label="نامه های در دست اقدام">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
+        </activity>
+        <activity
+            android:name=".Baygani"
+            android:label="نامه های بایگانی شده">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
+        </activity>
+        <activity
+            android:name=".NamehSentView"
+            android:label="مشاهده نامه">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.payvand.jahandideh.payvand.Peyvand" />
+        </activity>
+        <activity android:name=".EghdamUpdate"></activity>
     </application>
 
 </manifest>

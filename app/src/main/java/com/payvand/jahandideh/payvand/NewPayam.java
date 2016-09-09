@@ -80,6 +80,7 @@ public class NewPayam extends AppCompatActivity {
                 mapayam.setText("");
                 mopayam.setText("");
                 recive.setText("");
+                recie="";
             }
         });
         getData();

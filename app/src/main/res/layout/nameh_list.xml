@@ -1,64 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:layout_width="fill_parent"
-    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
 
    android:layout_margin="3dp">
+
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         card_view:cardCornerRadius="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <LinearLayout
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:text="@string/mnameh"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#000"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تاریخ ارسال :"
+            android:textColor="#000"
+            android:layout_weight="0.69"
+            android:id="@+id/textView15"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/textView2" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textView2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+            android:layout_marginRight="10dp"
         android:textColor="#000"
-         />
-</LinearLayout>
+            android:layout_gravity="right"
+            android:layout_weight="0.34"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#fbfcf4">
+        android:background="#fbfcf4"
+        android:layout_marginBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="خلاصه نامه"
+            android:text="موضوع نامه:"
             android:id="@+id/textView8"
             android:textColor="#000"
             android:layout_marginLeft="5dp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/textView3"
             android:textColor="#000" />
@@ -66,33 +74,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
         <TextView
             android:layout_width="96dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="@string/ersali"
             android:textColor="#000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
         <TextView
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textView4"
             android:textColor="#000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginLeft="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/textView7"
             android:textColor="#000"
-            android:layout_weight="0.20" />
-
+            android:layout_weight="0.20"
+            android:layout_marginLeft="30dp" />
+        <com.android.volley.toolbox.NetworkImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgread"
+            android:layout_marginLeft="5dp" />
     </LinearLayout>
 
         </LinearLayout>

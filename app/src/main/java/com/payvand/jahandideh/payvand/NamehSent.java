@@ -35,6 +35,7 @@ import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
+import static com.payvand.jahandideh.payvand.Config.TAG_TERSAL;
 
 public class NamehSent extends AppCompatActivity {
     private List<NamehParse> listNamehRecive;
@@ -106,8 +107,15 @@ public class NamehSent extends AppCompatActivity {
             ArrayList<NamehParse> powers = new ArrayList<NamehParse>();
             try {
                 json = array.getJSONObject(i);
-                namehParse.setNnameh(json.getString(TAG_MANAMEH));
-                namehParse.setMnameh(json.getString(TAG_MNAMEH));
+                namehParse.setNnameh(json.getString(TAG_MNAMEH));
+                String de=json.getString(TAG_TERSAL);
+                String[] dated=de.split("-");
+                Roozh roozh =new Roozh();
+                int year=Integer.parseInt(dated[0]);
+                int month=Integer.parseInt(dated[1]);
+                int day=Integer.parseInt(dated[2]);
+                roozh.GregorianToPersian(year,month,day);
+                namehParse.setMnameh(roozh.toString());
                 namehParse.setname(json.getString(TAG_NAME));
                 namehParse.setlname(json.getString(TAG_Lname));
                 namehParse.setId(json.getString(TAG_ID));

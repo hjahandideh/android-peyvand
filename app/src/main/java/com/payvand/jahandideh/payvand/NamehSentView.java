@@ -2,6 +2,7 @@ package com.payvand.jahandideh.payvand;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.payvand.jahandideh.payvand.Config.TAG_EGHDAM;
 import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
@@ -35,21 +37,23 @@ import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 import static com.payvand.jahandideh.payvand.Config.TAG_TERSAL;
 
 
-public class Nameh extends AppCompatActivity {
+public class NamehSentView extends AppCompatActivity {
 
     private TextView mnameh;
     private TextView manameh;
     private TextView ersal;
     private TextView ersall;
-    private TextView dateer;
+    private TextView tersall;
+    private TextView eghdam;
     String SetData;
     String recive;
     String name;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nameh);
+        setContentView(R.layout.activity_nameh_sent_view);
         Bundle b = getIntent().getExtras();
         SetData = b.getString("id");
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -58,14 +62,56 @@ public class Nameh extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mnameh=(TextView)findViewById(R.id.textmnameh);
-        manameh=(TextView)findViewById(R.id.textmanameh);
-        ersal=(TextView)findViewById(R.id.textersal);
-        ersall=(TextView)findViewById(R.id.textView19s);
-
-        dateer=(TextView)findViewById(R.id.txttersal);
+        mnameh = (TextView) findViewById(R.id.textmnamehs);
+        manameh = (TextView) findViewById(R.id.textmanamehs);
+        ersal = (TextView) findViewById(R.id.textersals);
+        ersall = (TextView) findViewById(R.id.textView19s);
+        tersall = (TextView) findViewById(R.id.txttersals);
+        eghdam = (TextView) findViewById(R.id.textView14);
         getData();
+
+            eghdam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                        Intent viewActivity = new Intent(NamehSentView.this, EghdamUpdate.class);
+                        Bundle bd=new Bundle();
+                        bd.putString("id",SetData);
+                        viewActivity.putExtras(bd);
+                        startActivity(viewActivity);
+                        finish();
+                        eghdam.setText("اقدامات انجام شد");
+
+                }
+            });
+
+
     }
+
+    private void registerUser() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.NAMEH_EDIT_EGHDAM_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", SetData);
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
 
     private void getData() {
         final ProgressDialog loading = ProgressDialog.show(this, "در حال دریافت اطلاعات...", "لطفا منتظر بمانید", false, false);
@@ -87,7 +133,7 @@ public class Nameh extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(Nameh.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(NamehSentView.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -110,6 +156,7 @@ public class Nameh extends AppCompatActivity {
                 manameh.setText(json.getString(TAG_MANAMEH));
                 ersal.setText(json.getString(TAG_NAME));
                 ersall.setText(json.getString(TAG_Lname));
+
                 String de=json.getString(TAG_TERSAL);
                 String[] dated=de.split("-");
                 Roozh roozh =new Roozh();
@@ -117,11 +164,11 @@ public class Nameh extends AppCompatActivity {
                 int month=Integer.parseInt(dated[1]);
                 int day=Integer.parseInt(dated[2]);
                 roozh.GregorianToPersian(year,month,day);
-                dateer.setText(roozh.toString());
-                dateer.setTypeface(NamehSentAdapter.face);
-
+                tersall.setTypeface(NamehSentAdapter.face);
+                tersall.setText(roozh.toString());
+                eghdam.setText(json.getString(TAG_EGHDAM));
             } catch (JSONException e) {
-                Log.i("matis", "error in nameh paredata parsedata()-->"+recive+ e.toString());
+                Log.i("matis", "error in nameh paredata parsedata()-->" + recive + e.toString());
             }
         }
     }
@@ -135,6 +182,7 @@ public class Nameh extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

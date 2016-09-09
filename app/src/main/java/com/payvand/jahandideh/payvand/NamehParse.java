@@ -9,10 +9,20 @@ public class NamehParse {
     private String nnameh;
     private String id;
     private String mnameh;
+    private String imageUrl;
     private String name;
     private String lname;
     private String ersal;
+    private String st;
     private ArrayList<NamehParse> namehs;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getid(){return id;}
     public void setId(String id){this.id=id;}
@@ -41,6 +51,13 @@ public class NamehParse {
         this.name = recive;
     }
 
+    public String getst() {
+        return st;
+    }
+
+    public void setst(String recive) {
+        this.st = recive;
+    }
 
     public String getersal() {
         return ersal;

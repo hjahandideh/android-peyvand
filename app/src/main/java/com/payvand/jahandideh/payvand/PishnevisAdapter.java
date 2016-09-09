@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,21 +35,11 @@ public class PishnevisAdapter extends RecyclerView.Adapter<PishnevisAdapter.View
         namehParse =  namehParses.get(position);
         holder.nnameh.setText(namehParse.getNnameh());
         holder.mnameh.setText(namehParse.getMnameh());
-        holder.btnedit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent viewActivity = new Intent(context.getApplicationContext(), EditNameh.class);
-                Bundle bd=new Bundle();
-                namehParse =  namehParses.get(position);
-                bd.putString("id",namehParse.getid());
-                viewActivity.putExtras(bd);
-                context.startActivity(viewActivity);
-            }
-        });
+
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent viewActivity = new Intent(context.getApplicationContext(),Nameh.class);
+                Intent viewActivity = new Intent(context.getApplicationContext(),EditNameh.class);
                 Bundle bd=new Bundle();
                 namehParse =  namehParses.get(position);
                 bd.putString("id",namehParse.getid());
@@ -69,15 +58,13 @@ public class PishnevisAdapter extends RecyclerView.Adapter<PishnevisAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView nnameh;
         public TextView mnameh;
-        public Button btnedit;
         public CardView card_view;
 
         public ViewHolder(View itemView) {
             super(itemView);
             nnameh = (TextView) itemView.findViewById(R.id.textView23);
             mnameh = (TextView) itemView.findViewById(R.id.textView22);
-            btnedit=(Button)itemView.findViewById(R.id.btnedit);
-            card_view=(CardView)itemView.findViewById(R.id.card_view);
+            card_view=(CardView)itemView.findViewById(R.id.card_viewp);
         }
     }
 }

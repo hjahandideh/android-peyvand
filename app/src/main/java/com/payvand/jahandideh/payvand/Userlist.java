@@ -6,6 +6,7 @@ public class Userlist {
     private String username;
     private String name;
     private String lname;
+    private String semat;
 
     private ArrayList<Userlist> users;
 
@@ -16,6 +17,15 @@ public class Userlist {
     public void setname(String name) {
         this.name = name;
     }
+
+    public String getsemat() {
+        return semat;
+    }
+
+    public void setsemat(String name) {
+        this.semat = name;
+    }
+
 
     public String getLname() {
         return lname;

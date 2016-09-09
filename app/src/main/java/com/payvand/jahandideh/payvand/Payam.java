@@ -27,15 +27,12 @@ import java.util.Map;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MAPayam;
-import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 
 public class Payam extends AppCompatActivity {
 
     private TextView mapayam;
-    private TextView name;
-    private TextView lname;
+
     String SetData;
 
     @Override
@@ -48,8 +45,7 @@ public class Payam extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        name=(TextView)findViewById(R.id.etrecive);
-        lname=(TextView)findViewById(R.id.etrecive1);
+
         mapayam=(TextView)findViewById(R.id.mpayamr);
         getData();
     }
@@ -95,8 +91,7 @@ public class Payam extends AppCompatActivity {
             JSONObject json = null;
             try {
                 json = array.getJSONObject(i);
-                name.setText(json.getString(TAG_NAME));
-                lname.setText(json.getString(TAG_Lname));
+
                 mapayam.setText(json.getString(TAG_MAPayam));
             } catch (JSONException e) {
                 Log.i("matis", "error in nameh paredata parsedata()-->" +e.toString());

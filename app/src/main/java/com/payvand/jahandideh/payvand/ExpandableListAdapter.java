@@ -87,6 +87,32 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
 					_context.startActivity(viewActivity, bndlanimation);
 				}
+				if(txtListChild.getText()=="در دست اقدام") {
+					txtListChild.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent viewActivity = new Intent(_context.getApplicationContext(),Eghdam.class);
+							Bundle bd = new Bundle();
+							bd.putString("username",SetData);
+							viewActivity.putExtras(bd);
+							Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
+							_context.startActivity(viewActivity, bndlanimation);
+						}
+					});
+				}
+				if(txtListChild.getText()=="بایگانی") {
+					txtListChild.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent viewActivity = new Intent(_context.getApplicationContext(), Baygani.class);
+							Bundle bd = new Bundle();
+							bd.putString("username",SetData);
+							viewActivity.putExtras(bd);
+							Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
+							_context.startActivity(viewActivity, bndlanimation);
+						}
+					});
+				}
 				if(txtListChild.getText()=="پیام جدید") {
 					Intent viewActivity = new Intent(_context.getApplicationContext(), NewPayam.class);
 					Bundle bd = new Bundle();
@@ -110,6 +136,41 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					viewActivity.putExtras(bd);
 					Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
 					_context.startActivity(viewActivity, bndlanimation);
+				}
+				if(txtListChild.getText()=="خروج از حساب کاربری") {
+					txtListChild.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							boolean f = mydb.deletdata(SetData);
+							if (f == true) {
+								Intent viewActivity1 = new Intent(_context.getApplicationContext(), MainActivity.class);
+								((Activity)_context).finish();
+								_context.startActivity(viewActivity1);
+							} else
+								Toast.makeText(_context.getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
+						}
+					});
+				}
+				if(txtListChild.getText()=="خروج از برنامه") {
+					txtListChild.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+
+						}
+					});
+				}
+				if(txtListChild.getText()=="گفتگو کاربران") {
+					txtListChild.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent viewActivity = new Intent(_context.getApplicationContext(), Chat.class);
+							Bundle bd = new Bundle();
+							bd.putString("chat",SetData);
+							viewActivity.putExtras(bd);
+							Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
+							_context.startActivity(viewActivity, bndlanimation);
+						}
+					});
 				}
 			}
 		});
@@ -149,33 +210,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.lblListHeader);
 		lblListHeader.setTypeface(null, Typeface.BOLD);
 		lblListHeader.setText(headerTitle);
-		if(lblListHeader.getText()=="خروج") {
-			lblListHeader.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					boolean f = mydb.deletdata(SetData);
-					if (f == true) {
-						Intent viewActivity1 = new Intent(_context.getApplicationContext(), MainActivity.class);
-						((Activity)_context).finish();
-						_context.startActivity(viewActivity1);
-					} else
-						Toast.makeText(_context.getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
-				}
-			});
-		}
-		if(lblListHeader.getText()=="گفتگو کاربران") {
-			lblListHeader.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent viewActivity = new Intent(_context.getApplicationContext(), Chat.class);
-					Bundle bd = new Bundle();
-					bd.putString("chat",SetData);
-					viewActivity.putExtras(bd);
-					Bundle bndlanimation = ActivityOptions.makeCustomAnimation(_context.getApplicationContext(), R.anim.ani1, R.anim.anim2).toBundle();
-					_context.startActivity(viewActivity, bndlanimation);
-				}
-			});
-		}
+
+
 			return convertView;
 
 	}

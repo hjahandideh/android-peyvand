@@ -1,5 +1,6 @@
 package com.payvand.jahandideh.payvand;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,8 @@ public class UsereAdapter extends RecyclerView.Adapter<UsereAdapter.ViewHolder> 
         Userlist userlist =  userlists.get(position);
         holder.name.setText(userlist.getname());
         holder.lname.setText(userlist.getLname());
-
-        holder.name.setOnClickListener(new View.OnClickListener() {
+        holder.semat.setText(userlist.getsemat());
+        holder.crvuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Userlist userlist =  userlists.get(position);
@@ -49,11 +50,15 @@ public class UsereAdapter extends RecyclerView.Adapter<UsereAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
         public TextView lname;
+        public TextView semat;
+
+        public CardView crvuser;
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.textView17);
             lname = (TextView) itemView.findViewById(R.id.textuser);
-
+            semat = (TextView) itemView.findViewById(R.id.semat);
+            crvuser = (CardView) itemView.findViewById(R.id.card_view_userlist);
         }
     }
 }

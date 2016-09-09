@@ -2,23 +2,19 @@ package com.payvand.jahandideh.payvand;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -35,40 +31,30 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.TAG_ID;
 import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
+import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_NAME;
 import static com.payvand.jahandideh.payvand.Config.TAG_ST;
 import static com.payvand.jahandideh.payvand.Config.TAG_TERSAL;
 import static com.payvand.jahandideh.payvand.Config.TAG_ersal;
 
-public class Peyvand extends AppCompatActivity {
+public class Eghdam extends AppCompatActivity {
     private List<NamehParse> listNamehRecive;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private CustomView imageeView;
-    private ImageLoader imageLoader;
     String name, lname;
     String SetData;
-    DatabaseHelper mydb;
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peyvand);
-        mydb = new DatabaseHelper(this);
-        Cursor res = mydb.showdata();
-        StringBuffer data = new StringBuffer();
-        while (res.moveToNext()) {
-            data.append(res.getString(1) + "");
-        }
-        SetData = data.toString();
-        imageeView = (CustomView) findViewById(R.id.g);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        setContentView(R.layout.activity_eghdam);
+
+        Bundle b = getIntent().getExtras();
+        SetData = b.getString("username");
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_eghdam);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -78,55 +64,9 @@ public class Peyvand extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Navigation_drawer my_nav = (Navigation_drawer)
-                getSupportFragmentManager().findFragmentById(R.id.fnd);
-        my_nav.setup((DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-        loadImage();
-        expListView = (ExpandableListView) findViewById(R.id.exp_list);
-        prepareListData();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
+
     }
 
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        listDataHeader.add("نامه");
-        listDataHeader.add("پیام");
-        listDataHeader.add("گفتگو کاربران");
-        listDataHeader.add("خروج");
-
-        List<String> nameh = new ArrayList<String>();
-        nameh.add("جدید");
-        nameh.add("ارسال شده ها");
-        nameh.add("پیش نویس");
-        nameh.add("در دست اقدام");
-        nameh.add("بایگانی");
-        List<String> payam = new ArrayList<String>();
-        payam.add("پیام جدید");
-        payam.add("دریافت");
-        payam.add("ارسال شده");
-        List<String> exit = new ArrayList<String>();
-        exit.add("خروج از برنامه");
-        exit.add("خروج از حساب کاربری");
-        List<String> chat = new ArrayList<String>();
-        chat.add("گفتگو کاربران");
-        listDataChild.put(listDataHeader.get(0), nameh);
-        listDataChild.put(listDataHeader.get(1), payam);
-        listDataChild.put(listDataHeader.get(3), exit);
-        listDataChild.put(listDataHeader.get(2), chat);
-    }
-
-    private void loadImage() {
-        try {
-            String url = "http://bemq.ir/image/" + SetData + ".jpg";
-            imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext()).getImageLoader();
-            imageLoader.get(url, ImageLoader.getImageListener(imageeView, R.drawable.user, android.R.drawable.ic_dialog_alert));
-            imageeView.setImageUrl(url, imageLoader);
-        } catch (Exception e) {
-            Log.i("matis", "error in Peyvand loadimage()-->" + e.toString());
-        }
-    }
 
     private void getData() {
 
@@ -134,7 +74,7 @@ public class Peyvand extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.NAMEH_RECIVE_URL,
+        StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.NAMEH_EGHDAM_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -152,7 +92,7 @@ public class Peyvand extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(Peyvand.this, "خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Eghdam.this, "خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
                     }
                 })
         {
@@ -175,7 +115,10 @@ public class Peyvand extends AppCompatActivity {
             try {
                 json = array.getJSONObject(i);
                 namehParse.setNnameh(json.getString(TAG_MNAMEH));
-               String de=json.getString(TAG_TERSAL);
+                namehParse.setname(json.getString(TAG_NAME));
+                namehParse.setlname(json.getString(TAG_Lname));
+                namehParse.setId(json.getString(TAG_ID));
+                String de=json.getString(TAG_TERSAL);
                 String[] dated=de.split("-");
                 Roozh roozh =new Roozh();
                 int year=Integer.parseInt(dated[0]);
@@ -183,9 +126,6 @@ public class Peyvand extends AppCompatActivity {
                 int day=Integer.parseInt(dated[2]);
                 roozh.GregorianToPersian(year,month,day);
                 namehParse.setMnameh(roozh.toString());
-                namehParse.setname(json.getString(TAG_NAME));
-                namehParse.setlname(json.getString(TAG_Lname));
-                namehParse.setId(json.getString(TAG_ID));
                 namehParse.setImageUrl("http://bemq.ir/image/"+json.getString(TAG_ST)+".png");
                 namehParse.setersal(json.getString(TAG_ersal));
                 powers.add(namehParse);

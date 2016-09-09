@@ -1,7 +1,9 @@
 package com.payvand.jahandideh.payvand;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,7 +29,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +39,7 @@ import java.util.Map;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.payvand.jahandideh.payvand.Config.Edit_Nameh_URL;
+import static com.payvand.jahandideh.payvand.Config.NAMEH_NEW_URL;
 import static com.payvand.jahandideh.payvand.Config.TAG_Lname;
 import static com.payvand.jahandideh.payvand.Config.TAG_MANAMEH;
 import static com.payvand.jahandideh.payvand.Config.TAG_MNAMEH;
@@ -49,10 +54,14 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
     public static final String KEY_NNAMEH = "nnameh";
     public static final String KEY_MNAMEH = "mnameh";
     public static final String KEY_MANAMEH = "manameh";
-    public static final String KEY_RECIVE = "recive";
+    public static final String KEY_ERJAH = "jahat";
+    public static final String KEY_ERJA = "erjah";
+    public static final String KEY_mte = "tmeghhdam";
     public static final String KEY_ERSAL = "ersal";
+    public static final String KEY_EGHDAM = "eghdam";
     public static final String KEY_TERSAL = "tersal";
-    public static final String KEY_ID = "id";
+    public static final String KEY_ST = "st";
+    public static final String KEY_TAYEED = "tayeed";
     String SetData;
     private EditText nnameh;
     private EditText mnameh;
@@ -60,12 +69,12 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
     public static TextView tv;
     public static String usere;
     String userer;
-    private EditText tersal;
-    private List<Userlist> listuser;
+    private List<ErjahList> listuser;
     private Button buttonRegister;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+    String date;
 
 
     @Override
@@ -81,7 +90,6 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
         mnameh = (EditText) findViewById(R.id.mn);
         manameh = (EditText) findViewById(R.id.man);
         listuser=new ArrayList<>();
-        tersal = (EditText) findViewById(R.id.tersali);
         buttonRegister = (Button) findViewById(R.id.btn_sabti);
         buttonRegister.setOnClickListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -94,6 +102,7 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
         setData();
         Bundle db = getIntent().getExtras();
         SetData = db.getString("id");
+        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
     private void getData() {
@@ -139,8 +148,7 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
                 mnameh.setText(json.getString(TAG_MNAMEH));
                 nnameh.setText(json.getString(TAG_NNAMEH));
                 manameh.setText(json.getString(TAG_MANAMEH));
-                tersal.setText(json.getString(TAG_TERSAL));
-                userer=json.getString(TAG_ersal);
+
             } catch (JSONException e) {
                 Log.i("matis", "error in nameh paredata parsedata()-->"+ e.toString());
             }
@@ -148,15 +156,17 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
     }
 
     private void setData() {
-        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.USER_URL,
+
+        final StringRequest jsonobjectRequest = new StringRequest(Request.Method.POST, Config.ERJAH_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jo = new JSONObject(response);
-                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_User);
+                            JSONArray jsonArray = jo.getJSONArray(Config.TAG_NAMEHS);
                             parseData(jsonArray);
                         } catch (JSONException e) {
+
                             Log.i("matis", "error in newnameh jsonobject()-->" + e.toString());
                         }
                     }
@@ -173,61 +183,61 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
 
     private void parseData(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            Userlist userlist = new Userlist();
+            ErjahList erjahList = new ErjahList();
             JSONObject json = null;
-            ArrayList<Userlist> powers = new ArrayList<Userlist>();
+            ArrayList<ErjahList> powers = new ArrayList<ErjahList>();
             try {
                 json = array.getJSONObject(i);
-                userlist.setUsername(json.getString(TAG_Username));
-                userlist.setname(json.getString(TAG_NAME));
-                userlist.setLname(json.getString(TAG_Lname));
-                powers.add(userlist);
+                erjahList.seterjah(json.getString(KEY_ERJA));
+
+                powers.add(erjahList);
+
+
             } catch (JSONException e) {
                 Log.i("matis", "error in Recive_payam parsedata()-->" + e.toString());
             }
-            userlist.setuser(powers);
-            listuser.add(userlist);
-            adapter = new UsereAdapter(listuser);
+            erjahList.setErjahs(powers);
+            listuser.add(erjahList);
+            adapter = new ErjahAdapteredit(listuser);
             recyclerView.setAdapter(adapter);
         }
     }
     private void registerUser() {
-        final String id=SetData;
         final String nn = nnameh.getText().toString();
         final String mn = mnameh.getText().toString();
         final String man = manameh.getText().toString();
-        final String r = usere;
-        final String e = userer;
-        final String t = tersal.getText().toString();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,Edit_Nameh_URL,
+        final String r = tv.getText().toString();
+        final String t = date;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Edit_Nameh_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(EditNameh.this, "نامه ویرایش    شد", Toast.LENGTH_LONG).show();
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditNameh.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditNameh.this, "خطا در ثبت اطلاعات", Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(KEY_ID, id);
                 params.put(KEY_NNAMEH, nn);
                 params.put(KEY_MNAMEH, mn);
                 params.put(KEY_MANAMEH, man);
-                params.put(KEY_RECIVE, r);
-                params.put(KEY_ERSAL, e);
+                params.put(KEY_ERJAH, r);
                 params.put(KEY_TERSAL, t);
+
                 return params;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
     @Override
     public void onClick(View v) {
         if (v == buttonRegister) {
@@ -236,8 +246,13 @@ public class EditNameh extends AppCompatActivity implements View.OnClickListener
             mnameh.setText("");
             manameh.setText("");
             tv.setText("");
-            tersal.setText("");
-
+            Intent viewActivity = new Intent(this, Reciver.class);
+            Bundle bd = new Bundle();
+            bd.putString("username",SetData);
+            viewActivity.putExtras(bd);
+            Bundle bndlanimation = ActivityOptions.makeCustomAnimation(this, R.anim.ani1, R.anim.anim2).toBundle();
+            startActivity(viewActivity, bndlanimation);
+            finish();
         }
     }
 
